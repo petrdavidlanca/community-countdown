@@ -1,0 +1,93 @@
+generator client {
+  provider = "prisma-client-js"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("POSTGRES_PRISMA_URL") // Connection pooling URL for queries
+  directUrl = env("POSTGRES_URL_NON_POOLING") // Direct connection URL for migrations
+}
+
+// Auth.js Models
+model Account {
+  id                 String  @id @default(cuid())
+  userId             String
+  type               String
+  provider           String
+  providerAccountId  String
+  refresh_token      String?  @db.Text
+  access_token       String?  @db.Text
+  expires_at         Int?
+  token_type         String?
+  scope              String?
+  id_token           String?  @db.Text
+  session_state      String?
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId])
+}
+
+model Session {
+  id           String   @id @default(cuid())
+  sessionToken String   @unique
+  userId       String
+  expires      DateTime
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model User {
+  id            String    @id @default(cuid())
+  name          String?
+  email         String?   @unique
+  emailVerified DateTime?
+  image         String?
+  accounts      Account[]
+  sessions      Session[]
+  
+  // App-specific models
+  timers        Timer[]
+  savedTimers   SavedTimer[]
+}
+
+model VerificationToken {
+  identifier String
+  token      String   @unique
+  expires    DateTime
+
+  @@unique([identifier, token])
+}
+
+// App Models
+model Timer {
+  id              String   @id @default(cuid())
+  title           String
+  targetDate      DateTime?
+  durationSeconds Int?
+  type            String   // "DATE" or "CONSTANT"
+  font            String   @default("sans")
+  color           String   @default("#ffffff")
+  bgImage         String?
+  visibility      String   @default("PUBLIC") // "PUBLIC" or "UNLISTED"
+  
+  creatorId       String?  // Nullable for Guest Timers
+  creator         User?    @relation(fields: [creatorId], references: [id], onDelete: SetNull)
+  
+  createdAt       DateTime @default(now())
+  
+  savedBy         SavedTimer[]
+}
+
+model SavedTimer {
+  id        String   @id @default(cuid())
+  userId    String
+  timerId   String
+  notifyMe  Boolean  @default(true)
+  createdAt DateTime @default(now())
+
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  timer     Timer    @relation(fields: [timerId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, timerId])
+}
