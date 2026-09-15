@@ -150,7 +150,7 @@ export default function CreateTimerPage() {
                       type="button"
                       onClick={() => setBgImage(bg)}
                       className={`h-16 rounded-md border-2 bg-cover bg-center ${bgImage === bg ? 'border-primary' : 'border-transparent'}`}
-                      style={{ backgroundImage: bg ? \`url(\${bg})\` : 'none', backgroundColor: bg ? 'transparent' : '#333' }}
+                      style={{ backgroundImage: bg ? `url(\${bg})` : 'none', backgroundColor: bg ? 'transparent' : '#333' }}
                     />
                   ))}
                 </div>
@@ -174,7 +174,7 @@ export default function CreateTimerPage() {
           <div 
             className="flex-1 rounded-xl shadow-2xl flex flex-col items-center justify-center p-8 bg-cover bg-center bg-zinc-900 overflow-hidden relative"
             style={{ 
-              backgroundImage: bgImage ? \`url(\${bgImage})\` : 'none',
+              backgroundImage: bgImage ? `url(\${bgImage})` : 'none',
               color: color,
               fontFamily: font === 'sans' ? 'sans-serif' : 'serif'
             }}

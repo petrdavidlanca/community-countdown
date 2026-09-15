@@ -43,11 +43,11 @@ export default async function Home() {
 
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
           {publicTimers.map((timer) => (
-            <Link key={timer.id} href={\`/timer/\${timer.id}\`}>
+            <Link key={timer.id} href={`/timer/\${timer.id}`}>
               <Card className="h-64 overflow-hidden relative group cursor-pointer border-0 rounded-2xl">
                 <div 
                   className="absolute inset-0 bg-cover bg-center transition-transform group-hover:scale-110 duration-700"
-                  style={{ backgroundImage: timer.bgImage ? \`url(\${timer.bgImage})\` : 'none', backgroundColor: timer.bgImage ? 'transparent' : '#222' }}
+                  style={{ backgroundImage: timer.bgImage ? `url(\${timer.bgImage})` : 'none', backgroundColor: timer.bgImage ? 'transparent' : '#222' }}
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent group-hover:from-black/80 transition-colors duration-500" />
                 
@@ -59,7 +59,7 @@ export default async function Home() {
                   <div className="flex items-center justify-between text-xs font-medium text-zinc-300">
                     <div className="flex items-center space-x-1">
                       <Clock className="w-3 h-3" />
-                      <span>{timer.type === "DATE" && timer.targetDate ? new Date(timer.targetDate).toLocaleDateString() : \`\${timer.durationSeconds}s\`}</span>
+                      <span>{timer.type === "DATE" && timer.targetDate ? new Date(timer.targetDate).toLocaleDateString() : `${timer.durationSeconds}s`}</span>
                     </div>
                     <div className="flex items-center space-x-1 bg-white/10 px-2 py-1 rounded-full backdrop-blur-sm">
                       <Users className="w-3 h-3" />

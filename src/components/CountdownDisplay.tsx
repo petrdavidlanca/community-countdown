@@ -30,7 +30,7 @@ export function CountdownDisplay({ type, targetDate, durationSeconds }: Props) {
       // For CONSTANT, we start counting from "now" 
       // But wait, if someone refreshes, it resets. 
       // For this simple version, we'll store the end time in sessionStorage so it survives refresh within the same session
-      const storageKey = \`timer_end_\${durationSeconds}\`
+      const storageKey = `timer_end_\${durationSeconds}`
       const savedEnd = sessionStorage.getItem(storageKey)
       if (savedEnd) {
         targetTimeMs = parseInt(savedEnd)

@@ -55,18 +55,18 @@ export default async function DashboardPage() {
 
 function TimerCard({ timer }: { timer: any }) {
   return (
-    <Link href={\`/timer/\${timer.id}\`}>
+    <Link href={`/timer/\${timer.id}`}>
       <Card className="h-48 overflow-hidden relative group cursor-pointer border-0">
         <div 
           className="absolute inset-0 bg-cover bg-center transition-transform group-hover:scale-105 duration-500"
-          style={{ backgroundImage: timer.bgImage ? \`url(\${timer.bgImage})\` : 'none', backgroundColor: timer.bgImage ? 'transparent' : '#333' }}
+          style={{ backgroundImage: timer.bgImage ? `url(\${timer.bgImage})` : 'none', backgroundColor: timer.bgImage ? 'transparent' : '#333' }}
         />
         <div className="absolute inset-0 bg-black/60 group-hover:bg-black/40 transition-colors duration-500" />
         <div className="absolute inset-0 p-4 flex flex-col justify-between text-white">
           <div className="font-semibold text-xl truncate">{timer.title}</div>
           <div className="flex items-center space-x-2 text-sm opacity-80">
             <Clock className="w-4 h-4" />
-            <span>{timer.type === "DATE" ? new Date(timer.targetDate).toLocaleDateString() : \`\${timer.durationSeconds} sec\`}</span>
+            <span>{timer.type === "DATE" ? new Date(timer.targetDate).toLocaleDateString() : `\${timer.durationSeconds} sec`}</span>
           </div>
         </div>
       </Card>

@@ -3,7 +3,8 @@ import { notFound } from "next/navigation"
 import { CountdownDisplay } from "@/components/CountdownDisplay"
 import { TimerActionBar } from "@/components/TimerActionBar"
 
-export default async function TimerPage({ params }: { params: { id: string } }) {
+export default async function TimerPage(props: { params: Promise<{ id: string }> }) {
+  const params = await props.params;
   const timer = await getTimer(params.id)
   
   if (!timer) {
@@ -14,7 +15,7 @@ export default async function TimerPage({ params }: { params: { id: string } }) 
     <div 
       className="h-screen w-screen flex flex-col items-center justify-center bg-cover bg-center overflow-hidden relative"
       style={{
-        backgroundImage: timer.bgImage ? \`url(\${timer.bgImage})\` : 'none',
+        backgroundImage: timer.bgImage ? `url(\${timer.bgImage})` : 'none',
         backgroundColor: timer.bgImage ? 'transparent' : '#111',
         color: timer.color,
         fontFamily: timer.font === 'sans' ? 'sans-serif' : 'serif'
