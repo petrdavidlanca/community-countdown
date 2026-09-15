@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button"
 import { Card } from "@/components/ui/card"
 import { Clock, Users, PlusCircle } from "lucide-react"
 import Link from "next/link"
+export const dynamic = 'force-dynamic';
 
 export default async function Home() {
   const publicTimers = await getPublicTimers()
@@ -45,17 +46,17 @@ export default async function Home() {
           {publicTimers.map((timer) => (
             <Link key={timer.id} href={`/timer/\${timer.id}`}>
               <Card className="h-64 overflow-hidden relative group cursor-pointer border-0 rounded-2xl">
-                <div 
+                <div
                   className="absolute inset-0 bg-cover bg-center transition-transform group-hover:scale-110 duration-700"
                   style={{ backgroundImage: timer.bgImage ? `url(\${timer.bgImage})` : 'none', backgroundColor: timer.bgImage ? 'transparent' : '#222' }}
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent group-hover:from-black/80 transition-colors duration-500" />
-                
+
                 <div className="absolute inset-0 p-5 flex flex-col justify-end text-white">
                   <h3 className="font-bold text-xl leading-tight mb-2 truncate" style={{ color: timer.color, fontFamily: timer.font === 'sans' ? 'sans-serif' : 'serif' }}>
                     {timer.title}
                   </h3>
-                  
+
                   <div className="flex items-center justify-between text-xs font-medium text-zinc-300">
                     <div className="flex items-center space-x-1">
                       <Clock className="w-3 h-3" />
