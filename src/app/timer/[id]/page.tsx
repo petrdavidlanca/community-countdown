@@ -31,7 +31,7 @@ export default async function TimerPage(props: { params: Promise<{ id: string }>
         <CountdownDisplay 
           targetDate={timer.targetDate}
           durationSeconds={timer.durationSeconds}
-          type={timer.type}
+          type={timer.type as "DATE" | "CONSTANT"}
           font={timer.font}
           color={timer.color}
         />
