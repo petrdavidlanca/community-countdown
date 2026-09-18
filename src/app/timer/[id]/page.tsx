@@ -15,7 +15,7 @@ export default async function TimerPage(props: { params: Promise<{ id: string }>
     <div 
       className="h-screen w-screen flex flex-col items-center justify-center bg-cover bg-center overflow-hidden relative"
       style={{
-        backgroundImage: timer.bgImage ? `url(\${timer.bgImage})` : 'none',
+        backgroundImage: timer.bgImage ? `url(${timer.bgImage})` : 'none',
         backgroundColor: timer.bgImage ? 'transparent' : '#111',
         color: timer.color,
         fontFamily: timer.font === 'sans' ? 'sans-serif' : 'serif'

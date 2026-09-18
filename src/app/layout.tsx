@@ -31,7 +31,7 @@ export default async function RootLayout({
   return (
     <html lang="en" className="dark">
       <body
-        className={`\${geistSans.variable} \${geistMono.variable} min-h-screen bg-background antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable} min-h-screen bg-background antialiased`}
       >
         <header className="absolute top-0 w-full p-4 flex justify-between items-center z-50 pointer-events-none">
           <Link href="/" className="pointer-events-auto">
