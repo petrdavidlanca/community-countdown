@@ -65,7 +65,9 @@ export async function getUserTimers() {
 
 export async function saveTimer(timerId: string) {
   const session = await auth()
-  if (!session?.user?.id) throw new Error("Must be logged in to save timers")
+  if (!session?.user?.id) {
+    return { error: "Must be logged in to save timers" }
+  }
 
   const saved = await prisma.savedTimer.create({
     data: {
@@ -73,12 +75,14 @@ export async function saveTimer(timerId: string) {
       timerId
     }
   })
-  return saved
+  return { success: true }
 }
 
 export async function unsaveTimer(timerId: string) {
   const session = await auth()
-  if (!session?.user?.id) throw new Error("Must be logged in to unsave timers")
+  if (!session?.user?.id) {
+    return { error: "Must be logged in to unsave timers" }
+  }
 
   await prisma.savedTimer.delete({
     where: {

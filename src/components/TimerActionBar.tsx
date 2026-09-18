@@ -7,7 +7,7 @@ import { saveTimer } from "@/actions/timer"
 import { toast } from "sonner"
 import { useRouter } from "next/navigation"
 
-export function TimerActionBar({ timer }: { timer: any }) {
+export function TimerActionBar({ timerId }: { timerId: string }) {
   const router = useRouter()
   const [isCopied, setIsCopied] = useState(false)
   const [isSaving, setIsSaving] = useState(false)
@@ -22,8 +22,12 @@ export function TimerActionBar({ timer }: { timer: any }) {
   const handleSave = async () => {
     setIsSaving(true)
     try {
-      await saveTimer(timer.id)
-      toast.success("Timer saved! You will be notified when it ends.")
+      const result = await saveTimer(timerId)
+      if (result && result.error) {
+        toast.error(result.error)
+      } else {
+        toast.success("Timer saved! You will be notified when it ends.")
+      }
     } catch (e: any) {
       toast.error(e.message || "Failed to save timer")
     } finally {
