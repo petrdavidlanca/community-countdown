@@ -4,6 +4,7 @@ import "./globals.css";
 import { Toaster } from "@/components/ui/sonner";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
+import { auth } from "@/auth";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -20,11 +21,13 @@ export const metadata: Metadata = {
   description: "Create and share custom countdown timers",
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const session = await auth();
+
   return (
     <html lang="en" className="dark">
       <body
@@ -34,10 +37,19 @@ export default function RootLayout({
           <Link href="/" className="pointer-events-auto">
             <span className="font-bold text-xl drop-shadow-md">Countdowns</span>
           </Link>
-          <div className="flex gap-2 pointer-events-auto">
+          <div className="flex gap-2 pointer-events-auto items-center">
             <Link href="/dashboard">
               <Button variant="ghost" className="drop-shadow-md backdrop-blur-sm bg-black/20">Dashboard</Button>
             </Link>
+            {session?.user ? (
+              <Link href="/api/auth/signout">
+                <Button variant="ghost" className="drop-shadow-md backdrop-blur-sm bg-black/20 text-zinc-300">Sign Out</Button>
+              </Link>
+            ) : (
+              <Link href="/api/auth/signin">
+                <Button className="drop-shadow-md backdrop-blur-sm bg-white text-black hover:bg-zinc-200">Sign In</Button>
+              </Link>
+            )}
           </div>
         </header>
         {children}
