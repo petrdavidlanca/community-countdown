@@ -46,9 +46,14 @@ export default async function RootLayout({
                 <Button variant="ghost" className="drop-shadow-md backdrop-blur-sm bg-black/20 text-zinc-300">Sign Out</Button>
               </Link>
             ) : (
-              <Link href="/api/auth/signin">
-                <Button className="drop-shadow-md backdrop-blur-sm bg-white text-black hover:bg-zinc-200">Sign In</Button>
-              </Link>
+              <>
+                <Link href="/api/auth/signin">
+                  <Button variant="ghost" className="drop-shadow-md backdrop-blur-sm bg-black/20 text-zinc-300">Sign In</Button>
+                </Link>
+                <Link href="/signup">
+                  <Button className="drop-shadow-md backdrop-blur-sm bg-white text-black hover:bg-zinc-200">Sign Up</Button>
+                </Link>
+              </>
             )}
           </div>
         </header>
