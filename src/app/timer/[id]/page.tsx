@@ -35,7 +35,7 @@ export default async function TimerPage(props: { params: Promise<{ id: string }>
         />
       </div>
 
-      <TimerActionBar timerId={timer.id} />
+      <TimerActionBar timer={timer} />
     </div>
   )
 }
